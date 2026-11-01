@@ -1,0 +1,129 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La Especial de París · App (demo)</title>
+<meta name="theme-color" content="#0f5c5a"><link rel="apple-touch-icon" href="img/apple-touch-icon.png"><link rel="icon" href="img/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#0f5c5a;--teal2:#14726f;--or:#e07a2e;--cream:#f7efe3;--ink:#22201d;--mut:#8a8076;--card:#fffaf3}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Inter,system-ui,sans-serif;background:#1d2b2a;color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center}
+.stage{display:flex;gap:56px;align-items:center}
+.side{color:#e9dfd1;max-width:320px}.side h1{font-family:'Playfair Display';font-size:40px;line-height:1.1;margin-bottom:14px}.side p{opacity:.75;line-height:1.6;font-size:15px}.side .tag{display:inline-block;background:var(--or);color:#fff;font-size:12px;padding:5px 10px;border-radius:20px;margin-bottom:18px;font-weight:600}
+.phone{width:390px;height:844px;border-radius:56px;background:#000;padding:12px;box-shadow:0 40px 90px rgba(0,0,0,.5),inset 0 0 0 2px #333;position:relative}
+.screen{width:100%;height:100%;border-radius:44px;overflow:hidden;background:var(--cream);position:relative;display:flex;flex-direction:column}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:120px;height:34px;background:#000;border-radius:20px;z-index:50}
+.sbar{height:50px;flex:none;display:flex;justify-content:space-between;align-items:flex-end;padding:0 30px 6px;font-weight:600;font-size:15px;z-index:40}
+@media(max-width:760px){body{background:var(--cream);display:block}.side{display:none}.phone{width:100%;height:100dvh;border-radius:0;padding:0;box-shadow:none}.screen{border-radius:0}.island,.sbar{display:none}.content{padding-top:env(safe-area-inset-top)}}
+.content{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:100px}.content::-webkit-scrollbar{display:none}
+.view{display:none;animation:fade .35s}.view.on{display:block}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+.tabs{position:absolute;bottom:0;left:0;right:0;height:86px;background:rgba(255,250,243,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid #eadfce;display:flex;justify-content:space-around;padding-top:9px;z-index:30}
+.tab{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;font:500 10.5px Inter;color:var(--mut);width:64px;position:relative;cursor:pointer}.tab svg{width:25px;height:25px}.tab.on{color:var(--teal)}
+.badge{position:absolute;top:-3px;right:12px;background:var(--or);color:#fff;font-size:10px;font-weight:700;border-radius:10px;min-width:17px;height:17px;display:none;align-items:center;justify-content:center}
+.pad{padding:0 20px}
+.brand{font-family:'Playfair Display';color:var(--teal)}.small{font-size:12px;color:var(--mut);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+h2{font-family:'Playfair Display';font-size:28px;font-weight:700;margin:6px 0 14px}h3{font-family:'Playfair Display';font-size:20px;margin:22px 0 12px}
+.hero{margin:8px 16px 0;height:300px;border-radius:28px;background:url(img/hero.jpg) center/cover;position:relative;overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:22px}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(8,40,39,.85))}.hero *{position:relative}
+.hero .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.85}.hero b{font-family:'Playfair Display';font-size:30px;line-height:1.1;display:block;margin:6px 0 12px}
+.btn{border:0;border-radius:16px;padding:15px 20px;font:600 16px Inter;cursor:pointer;width:100%;background:var(--teal);color:#fff;transition:transform .15s}.btn:active{transform:scale(.97)}.btn.or{background:var(--or)}.btn.ghost{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}
+.pill{display:inline-block;background:var(--or);color:#fff;border-radius:20px;padding:8px 16px;font-weight:600;font-size:14px;border:0;width:auto}
+.hscroll{display:flex;gap:14px;overflow-x:auto;padding:0 20px 6px;scrollbar-width:none}.hscroll::-webkit-scrollbar{display:none}
+.fc{flex:none;width:158px;background:var(--card);border-radius:22px;overflow:hidden;box-shadow:0 6px 18px rgba(60,40,20,.08);cursor:pointer}.fc img{width:100%;height:140px;object-fit:cover;display:block}.fc div{padding:11px 13px 14px}.fc b{font-size:14.5px;display:block}.fc span{font-size:13px;color:var(--mut)}
+.promo{margin:18px 20px 0;background:var(--teal);color:#f7efe3;border-radius:22px;padding:18px;display:flex;gap:14px;align-items:center}.promo .st{font-family:'Playfair Display';font-size:34px;color:#ffc58f}
+.row{display:flex;gap:14px;background:var(--card);border-radius:20px;padding:10px;margin-bottom:12px;align-items:center;box-shadow:0 4px 14px rgba(60,40,20,.06);cursor:pointer}.row img{width:84px;height:84px;border-radius:14px;object-fit:cover}.row .t{flex:1}.row b{display:block;font-size:15.5px}.row p{font-size:12.5px;color:var(--mut);margin:3px 0 6px}.row .pr{font-weight:700;color:var(--teal)}
+.plus{width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;border:0;font-size:22px;cursor:pointer;flex:none}
+.chips{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto}.chip{border:1.5px solid #e2d5c2;background:#fff;border-radius:20px;padding:8px 15px;font:500 13.5px Inter;white-space:nowrap;cursor:pointer}.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tagS{display:inline-block;background:#ffe6d1;color:#b4561a;font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
+/* sheet */
+.sheet{position:absolute;inset:0;z-index:60;display:none}.sheet.on{display:block}.sheet .bg{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.sheet .p{position:absolute;bottom:0;left:0;right:0;background:var(--cream);border-radius:30px 30px 0 0;max-height:92%;overflow:auto;animation:up .35s cubic-bezier(.2,.9,.3,1)}@keyframes up{from{transform:translateY(100%)}}
+.sheet img.big{width:100%;height:300px;object-fit:cover;display:block}.x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.9);font-size:18px;cursor:pointer}
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 18px}.sz{border:1.5px solid #e2d5c2;background:#fff;border-radius:16px;padding:12px 6px;text-align:center;cursor:pointer;font:500 13px Inter}.sz b{display:block;font-size:15px;margin-bottom:2px}.sz.on{border-color:var(--teal);background:#e6f1f0;color:var(--teal)}
+.qty{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:16px}.qty button{width:40px;height:40px;border-radius:50%;border:1.5px solid #d8c9b4;background:#fff;font-size:20px;cursor:pointer}.qty b{font-size:20px;min-width:24px;text-align:center}
+.seg{display:flex;background:#ece1d0;border-radius:14px;padding:4px;margin-bottom:16px}.seg button{flex:1;border:0;background:none;padding:11px;border-radius:11px;font:600 14px Inter;cursor:pointer;color:var(--mut)}.seg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.box{background:var(--card);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 4px 14px rgba(60,40,20,.06)}
+.li{display:flex;justify-content:space-between;align-items:center;padding:9px 0;font-size:14.5px}.li+.li{border-top:1px solid #efe4d3}
+.pay{display:flex;align-items:center;gap:12px;border:1.5px solid #e2d5c2;border-radius:16px;padding:14px;margin-bottom:10px;background:#fff;cursor:pointer}.pay.on{border-color:var(--teal);background:#eef6f5}.pay .ic{width:42px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800}.pay small{display:block;color:var(--mut);font-size:12px}
+.empty{text-align:center;padding:60px 30px;color:var(--mut)}.empty div{font-size:54px;margin-bottom:10px}
+.track{position:relative;padding-left:34px}.stp{position:relative;padding-bottom:22px}.stp:before{content:'';position:absolute;left:-25px;top:4px;width:14px;height:14px;border-radius:50%;background:#d9cdbb}.stp:after{content:'';position:absolute;left:-19px;top:20px;width:2px;height:calc(100% - 16px);background:#e1d6c5}.stp:last-child:after{display:none}.stp.done:before{background:var(--teal)}.stp.cur:before{background:var(--or);box-shadow:0 0 0 6px rgba(224,122,46,.2)}.stp b{display:block;font-size:15px}.stp span{font-size:12.5px;color:var(--mut)}
+.loyal{background:linear-gradient(135deg,#0f5c5a,#0a3f3e);border-radius:26px;padding:22px;color:#f7efe3;position:relative;overflow:hidden}.loyal:after{content:'1921';position:absolute;right:-10px;bottom:-30px;font-family:'Playfair Display';font-size:110px;opacity:.07}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0 12px}.stamp{aspect-ratio:1;border-radius:50%;border:1.5px dashed rgba(247,239,227,.4);display:flex;align-items:center;justify-content:center;font-size:20px}.stamp.f{background:#f7efe3;border:0}.stamp.g{border:1.5px solid #ffc58f;color:#ffc58f;font-size:11px;font-weight:700}
+.prof{display:flex;align-items:center;gap:14px;margin-bottom:18px}.av{width:62px;height:62px;border-radius:50%;background:var(--or);color:#fff;font:700 24px 'Playfair Display';display:flex;align-items:center;justify-content:center}
+.notif{position:absolute;top:56px;left:10px;right:10px;background:rgba(250,246,240,.96);backdrop-filter:blur(20px);border-radius:22px;padding:13px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 12px 30px rgba(0,0,0,.18);z-index:70;transform:translateY(-160%);transition:transform .5s cubic-bezier(.2,.9,.3,1);cursor:pointer}.notif.on{transform:none}.notif img{width:40px;height:40px;border-radius:10px}.notif b{font-size:14px;display:block}.notif span{font-size:13px;color:#555}
+.ok{text-align:center;padding:30px 10px}.ok .c{width:86px;height:86px;border-radius:50%;background:#2e9a6b;color:#fff;font-size:44px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;animation:pop .5s}@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}}
+.foot{text-align:center;font-size:11px;color:var(--mut);padding:18px 20px 8px;line-height:1.6}
+.toast{position:absolute;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:14px;font-size:14px;opacity:0;transition:.3s;z-index:80;white-space:nowrap}.toast.on{opacity:1;transform:translateX(-50%)}
+.demo{background:#fff3e6;border:1px dashed var(--or);color:#a5521c;border-radius:12px;padding:10px 12px;font-size:12.5px;margin-bottom:14px}
+</style></head><body>
+<div class="stage">
+<div class="side"><span class="tag">Prototipo · App iOS y Android</span><h1>La Especial de París<br><i style="font-weight:500">en su celular</i></h1><p>Demo interactivo de la app propia: menú con fotos, pedidos para recoger o a domicilio, pago con tarjeta, OXXO o SPEI, seguimiento del pedido y tarjeta de puntos.<br><br>Tóquelo como si fuera la app real.</p><p style="margin-top:22px;font-size:12px">Demo hecho por Eduardo García Soluciones</p></div>
+<div class="phone"><div class="screen">
+<div class="island"></div><div class="sbar"><span id="clk">9:41</span><span>▮▮▮ 🔋</span></div>
+<div class="notif" id="notif" onclick="hideN();go('menu')"><img src="img/icon-192.png" alt=""><div><b>La Especial de París · ahora</b><span>Llegó la Nieve de Calabaza 🎃 Pruébala esta temporada.</span></div></div>
+<div class="content" id="content">
+
+<section class="view on" id="v-inicio">
+ <div class="pad" style="padding-top:6px;display:flex;justify-content:space-between;align-items:center"><div><div class="small">desde 1921</div><div class="brand" style="font-size:24px;font-weight:700">La Especial de París</div></div><button class="plus" style="background:#fff;color:var(--teal);box-shadow:0 2px 8px rgba(0,0,0,.08)" onclick="showN()">🔔</button></div>
+ <div class="hero"><span class="k">Helados y nieves artesanales</span><b>El mejor helado para quien valora la calidad y el sabor.</b><button class="pill" onclick="go('menu')">Ver el menú →</button></div>
+ <h3 class="pad">De temporada</h3><div class="hscroll" id="h-feat"></div>
+ <div class="promo" onclick="go('puntos')"><div class="st">7/10</div><div><b>¡Te faltan 3 sellos!</b><div style="font-size:13px;opacity:.8;margin-top:3px">10 sellos = 1 helado gratis</div></div></div>
+ <h3 class="pad">Favoritos de la casa</h3><div class="pad" id="h-fav"></div>
+ <div class="foot">Insurgentes Centro 117, CDMX<br>Precios y horarios de ejemplo · Demo hecho por Eduardo García Soluciones</div>
+</section>
+
+<section class="view" id="v-menu"><div class="pad"><div class="small" style="padding-top:6px">Menú</div><h2>Nuestros sabores</h2>
+ <div class="chips" id="chips"></div><div id="m-list"></div><div class="foot">Precios de ejemplo</div></div></section>
+
+<section class="view" id="v-pedido"><div class="pad"><div class="small" style="padding-top:6px">Tu pedido</div><h2 id="ped-t">Carrito</h2><div id="ped"></div></div></section>
+
+<section class="view" id="v-puntos"><div class="pad"><div class="small" style="padding-top:6px">Programa de lealtad</div><h2>Tus puntos</h2>
+ <div class="loyal"><div class="small" style="color:#ffc58f">Tarjeta Clásica</div><div style="font-family:'Playfair Display';font-size:24px;margin-top:4px">Ana Martínez</div><div class="stamps" id="stamps"></div><div style="font-size:13.5px;opacity:.85">10 sellos = 1 helado gratis · Ganas 1 sello por cada pedido</div></div>
+ <h3>Cómo funciona</h3><div class="box"><div class="li"><span>🍦 Pide desde la app o en mostrador</span></div><div class="li"><span>📲 Muestra tu código al pagar</span></div><div class="li"><span>🎁 Al llegar a 10, tu helado es gratis</span></div></div>
+ <div class="box" style="text-align:center"><div class="small">Tu código</div><div style="font:700 26px monospace;letter-spacing:.2em;margin:8px 0;color:var(--teal)">EP·1921·0427</div><div style="font-size:12px;color:var(--mut)">Cliente de ejemplo</div></div></div></section>
+
+<section class="view" id="v-perfil"><div class="pad" style="padding-top:12px"><div class="prof"><div class="av">A</div><div><b style="font-size:19px">Ana Martínez</b><div style="color:var(--mut);font-size:13px">Cliente de ejemplo</div></div></div>
+ <div class="box"><div class="li"><span>📦 Mis pedidos</span><span>›</span></div><div class="li"><span>📍 Mis direcciones</span><span>›</span></div><div class="li"><span>💳 Formas de pago</span><span>›</span></div><div class="li" onclick="showN()" style="cursor:pointer"><span>🔔 Notificaciones</span><span style="color:var(--teal);font-weight:600">Probar</span></div></div>
+ <div class="box"><b class="brand" style="font-size:18px">Visítanos</b><div class="li"><span>Insurgentes Centro 117, CDMX</span></div><div class="li"><span>Lun a Dom · 11:00 – 20:00</span><span class="tagS">ejemplo</span></div><a class="btn ghost" style="display:block;text-align:center;text-decoration:none;margin-top:8px" href="https://maps.google.com/?q=Insurgentes+Centro+117,+Tabacalera,+CDMX+06470" target="_blank">Cómo llegar</a></div>
+ <div class="foot">Esta es una demostración: pagos, clientes, precios y horarios son de ejemplo.<br>Demo hecho por Eduardo García Soluciones</div></div></section>
+</div>
+
+<div class="sheet" id="sheet"><div class="bg" onclick="closeS()"></div><div class="p" id="sp"></div></div>
+<div class="toast" id="toast"></div>
+<nav class="tabs" id="tabs"></nav>
+</div></div></div>
+<script>
+const F=[
+{id:'calabaza',n:'Helado de Calabaza',d:'De temporada. Calabaza de Castilla con un toque de especias.',c:'Helados',img:'calabaza',s:1},
+{id:'chabacano',n:'Nieve de Chabacano',d:'Fresca, natural y llena de sabor.',c:'Nieves',img:'chabacano',s:1},
+{id:'granada',n:'Nieve de Granada',d:'Granada roja, ligera y refrescante.',c:'Nieves',img:'granada'},
+{id:'turron',n:'Helado de Turrón',d:'Cremoso, con trocitos de almendra.',c:'Helados',img:'turron'},
+{id:'canela',n:'Helado de Canela',d:'Canela en raja, suave y aromático.',c:'Helados',img:'canela'}];
+const SZ=[{k:'Sencillo',p:55},{k:'Doble',p:85},{k:'Litro',p:220}];
+let cart=[],cat='Todos',mode='Recoger',payM='tarjeta',sel=null,szI=0,q=1,stage='cart';
+const $=i=>document.getElementById(i),m=n=>'$'+n.toLocaleString('es-MX');
+const ico={inicio:'<path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/>',menu:'<path d="M12 3a5 5 0 00-5 5c0 .3 0 .6.1.9A3 3 0 008 15h8a3 3 0 00.9-6.1c.1-.3.1-.6.1-.9a5 5 0 00-5-5zM9 15l3 7 3-7"/>',pedido:'<path d="M5 7h14l-1.2 12.1a2 2 0 01-2 1.9H8.2a2 2 0 01-2-1.9zM9 7V6a3 3 0 016 0v1"/>',puntos:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',perfil:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/>'};
+$('tabs').innerHTML=['inicio','menu','pedido','puntos','perfil'].map(t=>`<button class="tab ${t=='inicio'?'on':''}" data-t="${t}" onclick="go('${t}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">${ico[t]}</svg>${{inicio:'Inicio',menu:'Menú',pedido:'Pedido',puntos:'Puntos',perfil:'Perfil'}[t]}${t=='pedido'?'<span class="badge" id="bdg"></span>':''}</button>`).join('');
+function go(t){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id=='v-'+t));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.t==t));$('content').scrollTop=0;if(t=='pedido')rP()}
+const card=f=>`<div class="fc" onclick="openP('${f.id}')"><img src="img/${f.img}.jpg" alt="${f.n}"><div><b>${f.n}</b><span>desde ${m(55)}</span></div></div>`;
+const row=f=>`<div class="row" onclick="openP('${f.id}')"><img src="img/${f.img}.jpg" alt=""><div class="t"><b>${f.n}${f.s?'<span class="tagS">Temporada</span>':''}</b><p>${f.d}</p><span class="pr">desde ${m(55)}</span></div><button class="plus" onclick="event.stopPropagation();add('${f.id}',0,1)">+</button></div>`;
+$('h-feat').innerHTML=F.map(card).join('');$('h-fav').innerHTML=F.slice(2).map(row).join('');
+function rM(){$('chips').innerHTML=['Todos','Nieves','Helados'].map(c=>`<button class="chip ${c==cat?'on':''}" onclick="cat='${c}';rM()">${c}</button>`).join('');$('m-list').innerHTML=F.filter(f=>cat=='Todos'||f.c==cat).map(row).join('')}rM();
+function openP(id){sel=F.find(f=>f.id==id);szI=0;q=1;rS();$('sheet').classList.add('on')}
+function rS(){const f=sel;$('sp').innerHTML=`<button class="x" onclick="closeS()">✕</button><img class="big" src="img/${f.img}.jpg" alt=""><div class="pad" style="padding-top:18px;padding-bottom:30px"><div class="small">${f.c}</div><h2 style="margin-bottom:6px">${f.n}</h2><p style="color:var(--mut);line-height:1.5">${f.d}</p><div class="sizes">${SZ.map((s,i)=>`<div class="sz ${i==szI?'on':''}" onclick="szI=${i};rS()"><b>${s.k}</b>${m(s.p)}</div>`).join('')}</div><div class="qty"><button onclick="q=Math.max(1,q-1);rS()">−</button><b>${q}</b><button onclick="q++;rS()">+</button></div><button class="btn" onclick="add('${f.id}',${szI},${q});closeS()">Agregar · ${m(SZ[szI].p*q)}</button><div class="foot">Precios de ejemplo</div></div>`}
+function closeS(){$('sheet').classList.remove('on')}
+function add(id,s,n){const e=cart.find(c=>c.id==id&&c.s==s);e?e.q+=n:cart.push({id,s,q:n});stage='cart';badge();toast('Agregado al pedido ✓')}
+function badge(){const n=cart.reduce((a,c)=>a+c.q,0);$('bdg').style.display=n?'flex':'none';$('bdg').textContent=n}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1500)}
+const sub=()=>cart.reduce((a,c)=>a+SZ[c.s].p*c.q,0),env=()=>mode=='Domicilio'?35:0;
+function rP(){const P=$('ped');
+ if(stage=='track'){$('ped-t').textContent='Pedido #1921-047';P.innerHTML=`<div class="box" style="display:flex;gap:14px;align-items:center"><div style="font-size:38px">🍦</div><div><b>${mode=='Recoger'?'Listo para recoger en ~10 min':'Llega en ~30 min'}</b><div style="font-size:13px;color:var(--mut)">${mode=='Recoger'?'Insurgentes Centro 117':'Repartidor de la tienda'}</div></div></div><div class="box track"><div class="stp done"><b>Pedido recibido</b><span>La tienda recibió tu pedido</span></div><div class="stp done"><b>Pago aprobado (demo)</b><span>${{tarjeta:'Tarjeta',oxxo:'OXXO',spei:'SPEI'}[payM]}</span></div><div class="stp cur" id="s3"><b>Preparando tus helados</b><span>Servimos al momento</span></div><div class="stp" id="s4"><b>${mode=='Recoger'?'Listo en mostrador':'En camino'}</b><span>Te avisamos con una notificación</span></div><div class="stp"><b>Entregado</b><span>+1 sello en tu tarjeta</span></div></div><button class="btn ghost" onclick="stage='cart';cart=[];badge();go('inicio')">Volver al inicio</button>`;return}
+ if(stage=='ok'){$('ped-t').textContent='¡Listo!';P.innerHTML=`<div class="ok"><div class="c">✓</div><h2>Pago aprobado (demo)</h2><p style="color:var(--mut);margin-bottom:24px">Simulación: no se realizó ningún cobro real.</p><button class="btn" onclick="stage='track';rP()">Seguir mi pedido</button></div>`;return}
+ if(!cart.length){$('ped-t').textContent='Carrito';P.innerHTML=`<div class="empty"><div>🍨</div>Tu pedido está vacío.<br><br><button class="btn" onclick="go('menu')">Ver sabores</button></div>`;return}
+ if(stage=='pay'){$('ped-t').textContent='Pagar';P.innerHTML=`<div class="demo">Modo demo: no se piden ni guardan datos de tarjeta y no se cobra nada.</div>${[['tarjeta','#1a1f71','VISA','Tarjeta de crédito o débito','Visa, Mastercard, Amex'],['oxxo','#d52b1e','OXXO','Pago en OXXO','Recibe tu referencia y paga en efectivo'],['spei','#0f5c5a','SPEI','Transferencia SPEI','Desde la app de tu banco']].map(p=>`<div class="pay ${payM==p[0]?'on':''}" onclick="payM='${p[0]}';rP()"><div class="ic" style="background:${p[1]}">${p[2]}</div><div style="flex:1"><b>${p[3]}</b><small>${p[4]}</small></div>${payM==p[0]?'<b style="color:var(--teal)">✓</b>':''}</div>`).join('')}<div class="box"><div class="li"><b>Total</b><b>${m(sub()+env())}</b></div></div><button class="btn or" onclick="payNow(this)">Pagar ${m(sub()+env())} (demo)</button>`;return}
+ $('ped-t').textContent='Carrito';P.innerHTML=`<div class="seg">${['Recoger','Domicilio'].map(x=>`<button class="${mode==x?'on':''}" onclick="mode='${x}';rP()">${x=='Recoger'?'🏪 Recoger':'🛵 A domicilio'}</button>`).join('')}</div><div class="box" style="font-size:13.5px">${mode=='Recoger'?'📍 Insurgentes Centro 117 · listo en ~15 min':'🏠 Calle de ejemplo 123, Col. Juárez · ~35 min'}</div>${cart.map((c,i)=>{const f=F.find(x=>x.id==c.id);return`<div class="row"><img src="img/${f.img}.jpg" alt=""><div class="t"><b>${f.n}</b><p>${SZ[c.s].k} · ${m(SZ[c.s].p)}</p><div class="qty" style="justify-content:flex-start;margin:0;gap:10px"><button style="width:30px;height:30px" onclick="cart[${i}].q--;if(!cart[${i}].q)cart.splice(${i},1);badge();rP()">−</button><b style="font-size:15px">${c.q}</b><button style="width:30px;height:30px" onclick="cart[${i}].q++;badge();rP()">+</button></div></div><b class="pr">${m(SZ[c.s].p*c.q)}</b></div>`}).join('')}<div class="box"><div class="li"><span>Subtotal</span><span>${m(sub())}</span></div><div class="li"><span>Envío</span><span>${env()?m(env()):'Gratis'}</span></div><div class="li"><span>Sellos que ganas</span><span>⭐ +1</span></div><div class="li"><b>Total</b><b>${m(sub()+env())}</b></div></div><button class="btn" onclick="stage='pay';rP()">Continuar al pago</button><div class="foot">Precios y costo de envío de ejemplo</div>`}
+function payNow(b){b.textContent='Procesando…';b.disabled=true;setTimeout(()=>{stage='ok';rP()},1100)}
+$('stamps').innerHTML=Array.from({length:10},(_,i)=>i<7?'<div class="stamp f">🍦</div>':i==9?'<div class="stamp g">GRATIS</div>':'<div class="stamp"></div>').join('');
+function showN(){$('notif').classList.add('on');clearTimeout(window.nt);window.nt=setTimeout(hideN,4500)}function hideN(){$('notif').classList.remove('on')}
+setTimeout(showN,1800);
+const p=new URLSearchParams(location.search);if(p.get('v'))go(p.get('v'));if(p.get('demo')=='cart'){add('chabacano',1,1);add('calabaza',0,2);go('pedido')}if(p.get('demo')=='pay'){add('chabacano',1,1);add('calabaza',0,2);stage='pay';go('pedido')}if(p.get('demo')=='track'){add('chabacano',1,1);stage='track';go('pedido')}if(p.get('p'))openP(p.get('p'));
+</script></body></html>
